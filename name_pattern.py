@@ -62,9 +62,8 @@ def main():
     n = input("Enter the name here : ")
     t = turtle.Turtle()
     t.getscreen().bgcolor("black")
-    t.color("white")
 
-    t.speed(5)
+    t.speed(10)
     name(t, n)
     turtle.done()
 
