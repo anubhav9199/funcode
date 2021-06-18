@@ -42,24 +42,28 @@ def draw_function(event, x, y, flag,params):
         r = int(r)
 
 
-cv2.namedWindow('image')
-cv2.setMouseCallback('image', draw_function)
+if __name__ == '__main__':
+    cv2.namedWindow('image')
+    cv2.setMouseCallback('image', draw_function)
 
-while(1):
-    cv2.imshow("image", img)
-    if clicked:
-        cv2.rectangle(img, (20, 20), (750, 60), (b, g, r), -1)
-        color_name, hex_name = get_color_name_and_hex(r, g, b)
+    while(1):
+        cv2.imshow("image", img)
+        if clicked:
+            cv2.rectangle(img, (20, 20), (980, 60), (b, g, r), -1)
+
+            color_name, hex_name = get_color_name_and_hex(r, g, b)
+            color_params = {
+                'colorName': color_name, 'hexName': hex_name, 'R': str(r), 'G': str(g), 'B': str(b)
+            }
+            color_name_string = "%(colorName)s | R = %(R)s G = %(G)s B = %(B)s | (%(hexName)s)" % color_params 
+
+            cv2.putText(img, color_name_string, (50, 50), 2, 0.8, (255, 255, 255), 2, cv2.LINE_AA)
+
+            if (r+g+b) >= 600:
+                cv2.putText(img, color_name_string, (50, 50), 2, 0.8, (0, 0, 0), 2, cv2.LINE_AA)
+            clicked = False
         
-        color_name_string = color_name + " R = " + \
-            str(r) + " G = " + str(g) + " B = " + str(b) + 
-        cv2.putText(img, color_name_string, (50, 50), 2, 0.8, (255, 255, 255), 2, cv2.LINE_AA)
+        if cv2.waitKey(20) & 0xFF == 27:
+            break
 
-        if (r+g+b) >= 600:
-            cv2.putText(img, color_name_string, (50, 50), 2, 0.8, (0, 0, 0), 2, cv2.LINE_AA)
-        clicked = False
-    
-    if cv2.waitKey(20) & 0xFF == 27:
-        break
-
-cv2.destroyAllWindows()
+    cv2.destroyAllWindows()
