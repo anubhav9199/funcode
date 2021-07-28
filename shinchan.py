@@ -6,7 +6,7 @@ class Shinchan:
         # getscreen().bgcolor("black")
         self.wn = Screen()
         self.wn.setup(width=800, height=800)
-        speed(9)
+        speed(50)
         pensize(2)
  
     def myPosition(self, x, y):
@@ -563,8 +563,8 @@ class Shinchan:
         self.allEyes()
         self.myRobot()
         ht()
-        self.my_goto(80, -200)
-        write('Anubhav Sharma', font=("Comic Sans", 30, "bold"))
+        self.my_goto(80, -300)
+        write('Happy Birthday\nVaishnavi \nfrom \nShinchan and Anubhav', font=("Comic Sans", 30, "bold"))
         done()
  
 if  __name__ == "__main__":
