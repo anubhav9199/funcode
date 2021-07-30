@@ -1,7 +1,9 @@
 import sys
 import time
 
-USER_DICT = {"anubhav": "anubhav@12345", "vaishnavi": "vaishnavi@12345"}
+import user_utils
+
+USER_DICT = {}
 
 Questions = {
     1: 'What is your fathers name ->: ', 
@@ -12,22 +14,16 @@ Questions = {
 
 
 def register_user(username, password, question, answer):
-    USER_DICT[username] = {
-        "password": password,
-        "login": False,
-        "loginTs": int(time.time())
-    }
-    USER_DICT[username][question] = answer
+    user_utils.write_in_file(username, password, question, answer)
 
 
 def forget_password():
     username = input("Enter the Username ->: ")
+    return
 
 
 def change_password():
-    username = input("Enter the Username ->: ")
-    password = input("Enter the Password ->: ")
-    verify_password = input("Enter the Password again ->: ")
+    return
 
 
 def signup():
@@ -49,6 +45,7 @@ def logout():
     username = input("Enter the Username ->: ")
     if USER_DICT[username]['login']:
         USER_DICT[username]['login'] = False
+        user_utils.write_login_logs(username, "Logout")
         print("Logged Out Successfully")
         return
 
@@ -61,7 +58,9 @@ def login():
     if password == USER_DICT[username]['password']:
         USER_DICT[username]['login'] = True
         USER_DICT[username]['loginTs'] = int(time.time())
+        user_utils.write_login_logs(username, 'Login')
         print("Logged In Successfully")
+        return
     else:
         if USER_DICT[username]['login']:
             USER_DICT[username]['login'] = False
