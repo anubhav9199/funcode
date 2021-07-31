@@ -1,3 +1,4 @@
+'''
 import sys
 import time
 
@@ -90,3 +91,122 @@ if __name__ == '__main__':
             main()
     except:
         sys.exit
+'''
+
+user_data = {'shruti':'@Shruti27'}
+
+# Register function  
+def register():
+    symbol = ['@','#','$']
+    while 1:
+        name = input("Enter your username to register: ")
+        if name in user_data:
+            prompt ='This username has already been used, please re-enter:'
+            continue
+        else:
+            break
+        
+    while 1:
+        password = input('Please enter the password:')
+        if password == '':
+          print("Password cannot be empty.")
+          continue
+         
+        elif len(password)<6:
+            print("Length of password should be greater than 6 characters.")
+            continue
+            
+        elif not any(char.isdigit() for char in password):
+            print('Password should have at least one numeral.')
+            continue
+
+        elif not any(char.isupper() for char in password):
+            print('Password should have at least one uppercase letter.')
+            continue
+
+        elif not any(char.islower() for char in password):
+            print('Password should have at least one lowercase letter.')
+            continue
+
+        elif not any(char in symbol for char in password):
+            print("Password should have at least one special symbol.")
+            continue
+            
+        elif not password or " " in password:
+            print("Password cannot contain spaces.")     
+            continue
+
+        verify_pwd = input('Re-Enter your password: ')
+        if password == verify_pwd:
+            user_data[name] = password
+            print('Registered successfully!')
+        else:
+            print('Password not verified!')  
+            
+# Loginfunction             
+def login():
+    # wile 1:
+    name = input("Please enter the user name: ")
+    if name not in user_data:
+        print('This user does not exist!\nKindly register yourself:-> ')
+        register()
+        # continue
+    else:
+        # break
+        password = input('Please enter the password:')
+        pwd = user_data.get(name)
+        if password == pwd:
+            print('Welcome',name)
+        else:
+            print('Password error!')
+
+# Change your Password function 
+def change_password():
+    while 1:
+        username = input("Enter your username: ")
+        if username not in user_data:
+            print("This user doesn't exist! Create new user:->")
+            register()
+        else:
+            password = input("Enter you current password: ")
+            pwd = user_data.get(username)
+            if password != pwd:
+                print("Your input doesn't match to your current password.")
+            else:
+                new_pwd = input("Enter your new password: ")
+                user_data[username] = new_pwd
+                print("Password changed successfully.") 
+
+# Main Function
+def main():
+      prompt ='''
+ |---New user: N---|
+ |---Login account: L---|
+ |---Change password: C---|
+ |---Exit the program: E---|
+
+ Enter the command code: '''
+      while 1:
+            chosen = False
+            while not chosen:
+                  choice = input(prompt)
+                  if choice.upper() not in "NLCE":
+                      print('Instruction error re-enter: ')
+                  else:
+                      chosen = True
+            if choice in ["E", "e"]:
+                  break
+            if choice in ["N","n"]:
+                  register()
+            if choice in ["L","l"]:
+                  login()
+            if choice in ["C","c"]:
+                  change_password()
+
+
+if __name__ == "__main__":
+    main()
+
+
+
+
