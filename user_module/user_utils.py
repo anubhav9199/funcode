@@ -3,6 +3,7 @@ import time
 
 
 def write_in_file(username, password, question, answer):
+    data_to_dump = {}
     curr = time.localtime()
     currhr = curr.tm_hour
     currmin = curr.tm_min
@@ -10,13 +11,13 @@ def write_in_file(username, password, question, answer):
 
     date = "%s:%s:%s" % (curr.tm_mday, curr.tm_mon, curr.tm_year)
     time_write = "%s:%s" % (timehr, time_min)
-    data_to_dump = {
+    data_to_dump[username] = {
         "createdAtDate": date,
         "createdAtTs": time_write,
         "username": username,
         "password": password,
     }
-    data_to_dump[question] = answer
+    data_to_dump[username][question] = answer
 
     try:
         with open("use_dbs.json", "a", encoding='utf-8') as file:

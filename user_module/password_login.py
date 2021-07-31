@@ -53,16 +53,18 @@ def logout():
 
 
 def login():
+    user_data = user.utils.read_from_file()
     username = input("Enter the Username ->: ")
     password = input("Enter the Password ->: ")
-    if password == USER_DICT[username]['password']:
-        USER_DICT[username]['login'] = True
-        USER_DICT[username]['loginTs'] = int(time.time())
-        user_utils.write_login_logs(username, 'Login')
-        print("Logged In Successfully")
-        return
+    if username in user_data:
+        if password == user_data.get(username).get('password'):
+            USER_DICT[username]['login'] = True
+            USER_DICT[username]['loginTs'] = int(time.time())
+            user_utils.write_login_logs(username, 'Login')
+            print("Logged In Successfully")
+            return
     else:
-        if USER_DICT[username]['login']:
+        if USER_DICT.get(username, '').get('login'):
             USER_DICT[username]['login'] = False
 
         print("Username or Password is mismatch\nPlease Try again")
